@@ -529,7 +529,8 @@ export default function App() {
       "Status",
       "Has Attorney",
       "Attorney Name",
-      "Correspondent Name/Address",
+      "Correspondent Name",
+      "Correspondent Address",
       "Phone",
       "Correspondent Email",
       "Confidence",
@@ -544,7 +545,8 @@ export default function App() {
         escape(r.status),
         r.hasAttorney ? "Yes" : "No",
         escape(r.attorneyName),
-        escape([r.correspondentName, r.correspondentAddress].filter(Boolean).join(" | ")),
+        escape(r.correspondentName),
+        escape(r.correspondentAddress),
         escape(r.phone),
         escape(r.email),
         r.confidence,
@@ -902,7 +904,8 @@ export default function App() {
                     <th className="px-4 py-3 whitespace-nowrap">Serial #</th>
                     <th className="px-4 py-3 whitespace-nowrap">Mark</th>
                     <th className="px-4 py-3 whitespace-nowrap">Status</th>
-                    <th className="px-4 py-3 whitespace-nowrap">Correspondent Name / Address</th>
+                    <th className="px-4 py-3 whitespace-nowrap">Correspondent Name</th>
+                    <th className="px-4 py-3 whitespace-nowrap">Correspondent Address</th>
                     <th className="px-4 py-3 whitespace-nowrap">Phone</th>
                     <th className="px-4 py-3 whitespace-nowrap">Email</th>
                     <th className="px-4 py-3 whitespace-nowrap">Attorney?</th>
@@ -966,13 +969,15 @@ export default function App() {
                           </span>
                         )}
                       </td>
-                      <td className="px-4 py-3 max-w-[220px]">
+                      <td className="px-4 py-3 max-w-[200px]">
                         <div className="text-xs text-slate-200 font-medium">
                           {r.correspondentName || <span className="italic text-slate-500">—</span>}
                         </div>
-                        {r.correspondentAddress && (
-                          <div className="mt-0.5 text-xs text-slate-400">{r.correspondentAddress}</div>
-                        )}
+                      </td>
+                      <td className="px-4 py-3 max-w-[220px]">
+                        <div className="text-xs text-slate-400">
+                          {r.correspondentAddress || <span className="italic text-slate-500">—</span>}
+                        </div>
                       </td>
                       <td className="px-4 py-3 whitespace-nowrap text-xs text-slate-300">
                         {r.phone || <span className="italic text-slate-500">—</span>}
@@ -1017,7 +1022,7 @@ export default function App() {
 
                   {filteredRows.length === 0 && !isChecking && (
                     <tr>
-                      <td colSpan={10} className="py-12 text-center text-slate-500">
+                      <td colSpan={11} className="py-12 text-center text-slate-500">
                         {searchFilter ? "No results match your filter." : "No results in this category yet."}
                       </td>
                     </tr>
